@@ -1,35 +1,49 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleReject } from "../actions/index";
+import { togglePaper } from "./../actions/index";
+import Insert from "./Insert";
+import TodoList from "./TotoList";
+import Structure from "./Structure";
 
 export default function Home() {
   const dispatch = useDispatch();
   const reject = useSelector((state) => state.toggleReject.reject);
-  console.log(reject);
+  const paper = useSelector((state) => state.togglePaper.paper);
+  // console.log(reject);
 
   const alterMom = () => {
-    dispatch(toggleReject(!reject));
+    if (!paper) dispatch(toggleReject(!reject));
     // setReject(!reject);
+  };
+
+  const alterPaper = () => {
+    dispatch(togglePaper(!paper));
+    // paper ? dispatch(toggleReject(false)) : reject;
   };
 
   return (
     <Container>
-      <Template></Template>
-      <AlterBox>
-        <Pen src="./pen.png"></Pen>
-        {reject ? (
-          <StopImg src="./againBtn.png" onClick={alterMom} alter></StopImg>
-        ) : (
-          <StopImg src="./stopBtn.png" onClick={alterMom}></StopImg>
-        )}
-      </AlterBox>
+      <Template>
+        <TodoList></TodoList>
+        <Structure />
+      </Template>
       {reject ? (
         <Alter>
           <span>진실의 방</span>
           <DoorImg src="./door.png"></DoorImg>
         </Alter>
       ) : null}
+      <AlterBox>
+        <Pen src="./pen.png" onClick={alterPaper}></Pen>
+        {paper ? <Insert></Insert> : null}
+        {reject ? (
+          <StopImg src="./againBtn.png" onClick={alterMom} alter></StopImg>
+        ) : (
+          <StopImg src="./stopBtn.png" onClick={alterMom}></StopImg>
+        )}
+      </AlterBox>
     </Container>
   );
 }
@@ -49,6 +63,9 @@ const Template = styled.div`
   height: 40rem;
   background-color: #dddddd;
   box-shadow: 0rem 0rem 2rem 0rem #4c4c4c;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   &::before {
     background: linear-gradient(
@@ -68,7 +85,7 @@ const Template = styled.div`
     height: 32px;
     width: 100%;
 
-    position: relative;
+    position: absolute;
     top: -32px;
     left: 0;
   }
@@ -85,8 +102,8 @@ const Template = styled.div`
     width: 100%;
     height: 32px;
 
-    position: relative;
-    top: calc(40rem - 32px);
+    position: absolute;
+    top: calc(40rem);
     left: 0px;
   }
 `;
@@ -103,6 +120,7 @@ const AlterBox = styled.div`
 
 const Pen = styled.img`
   width: 10rem;
+  z-index: 1000;
   &:hover {
     transform: rotate(10deg);
   }
@@ -110,6 +128,8 @@ const Pen = styled.img`
 
 const StopImg = styled.img`
   width: 10rem;
+  z-index: 1000;
+
   cursor: pointer;
   &:hover {
     transform: rotate(10deg);
