@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
-let nextId = 4;
+import { useDispatch, useSelector } from "react-redux";
+import { toggleReject } from "../actions/index";
 
 export default function Home() {
-  const [alter, setAlter] = useState(true);
-  const [write, setWrite] = useState(false);
+  const dispatch = useDispatch();
+  const reject = useSelector((state) => state.toggleReject.reject);
+  console.log(reject);
 
-  const alterOn = () => {
-    setAlter(!alter);
+  const alterMom = () => {
+    dispatch(toggleReject(!reject));
+    // setReject(!reject);
   };
 
   return (
@@ -16,13 +18,13 @@ export default function Home() {
       <Template></Template>
       <AlterBox>
         <Pen src="./pen.png"></Pen>
-        {!alter ? (
-          <StopImg src="./againBtn.png" onClick={alterOn} alter></StopImg>
+        {reject ? (
+          <StopImg src="./againBtn.png" onClick={alterMom} alter></StopImg>
         ) : (
-          <StopImg src="./stopBtn.png" onClick={alterOn}></StopImg>
+          <StopImg src="./stopBtn.png" onClick={alterMom}></StopImg>
         )}
       </AlterBox>
-      {!alter ? (
+      {reject ? (
         <Alter>
           <span>진실의 방</span>
           <DoorImg src="./door.png"></DoorImg>

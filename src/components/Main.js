@@ -1,19 +1,34 @@
 import React, { useState } from "react";
+import { toggleReject } from "../actions/index";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Main() {
-  const [reject, setReject] = useState(true);
-  const alterMom = () => {
-    setReject(!reject);
-  };
+  // const [reject, setReject] = useState(false);
+  // const alterMom = () => {
+  //   setReject(!reject);
+  // };
 
+  const dispatch = useDispatch();
+  const reject = useSelector((state) => state.toggleReject.reject);
+  console.log(reject);
+
+  const alterMom = () => {
+    dispatch(toggleReject(!reject));
+    // setReject(!reject);
+  };
   return (
     <Container>
       <div className="offer">기랑아~청소기 좀 돌릴래?</div>
-      {!reject ? (
+      {reject ? (
         <AlterBox>
-          <ReBtn src="./againBtn.png" onClick={alterMom}></ReBtn>
+          <ReBtn
+            src="./againBtn.png"
+            onClick={() => {
+              alterMom();
+            }}
+          ></ReBtn>
           <ImgMom src="./alter.png"></ImgMom>
         </AlterBox>
       ) : null}
@@ -21,7 +36,7 @@ export default function Main() {
         <Link to="/Home">
           <YesBtn src="./okBtn.png"></YesBtn>
         </Link>
-        <NoBtn onClick={alterMom} src="./noBtn.png"></NoBtn>
+        <NoBtn onClick={() => alterMom()} src="./noBtn.png"></NoBtn>
       </YesOrNot>
     </Container>
   );
