@@ -34,11 +34,8 @@ const TotoList = () => {
               )}
               <div className="room">{item.room}</div>
               <div className="clean">{item.clean}</div>
-              <div className="clean">({item.during})</div>
+              <div className="clean">{item.during}분</div>
             </div>
-            <img
-              src={`./piece${Math.floor(Math.random() * (4 - 0) + 1)}.png`}
-            />
           </div>
         );
       })}
@@ -55,7 +52,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: start;
   padding: 0.7rem 0.2rem;
-  padding-top: 5rem;
+  padding-top: 6rem;
 
   background-image: url("./paper.png");
   background-size: 100% 100%;
