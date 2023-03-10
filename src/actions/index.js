@@ -2,6 +2,8 @@ export const TOGGLE_REJECT = "TOGGLE_REJECT";
 export const TOGGLE_PAPER = "TOGGLE_PAPER";
 export const ADD_TO_DO = "ADD_TO_DO";
 export const TOGGLE_CHECK = "TOGGLE_CHECK";
+export const ADD_CLEAN = "ADD_CLEAN";
+export const DELETE_TO_DO = "DELETE_TO_DO";
 
 export const toggleReject = () => {
   return {
@@ -38,9 +40,23 @@ export const addToDo = (room, tool) => {
   };
 };
 
+export const deleteTodo = (id) => {
+  return {
+    type: DELETE_TO_DO,
+    payload: id,
+  };
+};
+
 export const toggleCheck = (id) => {
   return {
-    type: "TOGGLE_CHECK",
+    type: TOGGLE_CHECK,
     payload: id,
+  };
+};
+
+export const checkClean = (room) => {
+  return {
+    type: ADD_CLEAN,
+    payload: room,
   };
 };
