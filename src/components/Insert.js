@@ -1,19 +1,29 @@
 import React from "react";
 import styled from "styled-components";
-import { addToDo, togglePaper } from "../actions/index";
+import { addToDo, togglePaper, toggleReject } from "../actions/index";
 import { useDispatch, useSelector } from "react-redux";
-import { todoReducer } from "../reducers/todoReducer";
 
 const Insert = () => {
   const dispatch = useDispatch();
+  const reject = useSelector((state) => state.toggleReject.reject);
   const paper = useSelector((state) => state.togglePaper.paper);
+
+  const alterPaper = (e) => {
+    e.stopPropagation();
+    if (!reject) dispatch(togglePaper(!paper));
+    // paper ? dispatch(toggleReject(false)) : reject;
+  };
 
   const handleTodo = (e) => {
     e.preventDefault();
+    // userSelector로 todos를 가져온 다음 length / modal 띄우기
     dispatch(addToDo(e.target.room.value, e.target.tool.value));
     dispatch(togglePaper(!paper));
   };
 
+  {
+    /*onClick={(e) => alterPaper(e)}*/
+  }
   return (
     <Container>
       <InputBox>
@@ -25,11 +35,11 @@ const Insert = () => {
           <div className="selectBox">
             <span>어디를 청소하지?</span>
             <select name="room" className="roomSelect">
-              <option value="화장실">화장실</option>
-              <option value="부엌">부엌</option>
-              <option value="작은 방">작은 방</option>
-              <option value="안방">안방</option>
-              <option value="베란다">베란다</option>
+              <option value=""></option>
+              <option value="엄마방">엄마방</option>
+              <option value="아빠방">아빠방</option>
+              <option value="내방">내방</option>
+              <option value="누나방">누나방</option>
               <option value="거실">거실</option>
             </select>
           </div>
@@ -45,7 +55,7 @@ const Insert = () => {
           <input type="submit" />
         </form>
       </InputBox>
-      <PaperImg src="./paper.png"></PaperImg>
+      <PaperImg src="./images/paper.png"></PaperImg>
     </Container>
   );
 };

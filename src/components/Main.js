@@ -1,18 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { toggleReject } from "../actions/index";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Main() {
-  // const [reject, setReject] = useState(false);
-  // const alterMom = () => {
-  //   setReject(!reject);
-  // };
-
   const dispatch = useDispatch();
   const reject = useSelector((state) => state.toggleReject.reject);
-  console.log(reject);
+  // console.log(reject);
 
   const alterMom = () => {
     dispatch(toggleReject(!reject));
@@ -24,19 +19,19 @@ export default function Main() {
       {reject ? (
         <AlterBox>
           <ReBtn
-            src="./againBtn.png"
+            src="./images/againBtn.png"
             onClick={() => {
               alterMom();
             }}
           ></ReBtn>
-          <ImgMom src="./alter.png"></ImgMom>
+          <ImgMom src="./images/alter.png"></ImgMom>
         </AlterBox>
       ) : null}
       <YesOrNot>
         <Link to="/Home">
-          <YesBtn src="./okBtn.png"></YesBtn>
+          <YesBtn src="./images/okBtn.png"></YesBtn>
         </Link>
-        <NoBtn onClick={() => alterMom()} src="./noBtn.png"></NoBtn>
+        <NoBtn onClick={() => alterMom()} src="./images/noBtn.png"></NoBtn>
       </YesOrNot>
     </Container>
   );

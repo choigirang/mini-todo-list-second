@@ -18,8 +18,9 @@ export default function Home() {
     // setReject(!reject);
   };
 
-  const alterPaper = () => {
-    dispatch(togglePaper(!paper));
+  const alterPaper = (e) => {
+    e.stopPropagation();
+    if (!reject) dispatch(togglePaper(!paper));
     // paper ? dispatch(toggleReject(false)) : reject;
   };
 
@@ -30,18 +31,18 @@ export default function Home() {
         <Structure />
       </Template>
       {reject ? (
-        <Alter>
+        <Alter onClick={(e) => alterMom(e)}>
           <span>진실의 방</span>
-          <DoorImg src="./door.png"></DoorImg>
+          <DoorImg src="./images/door.png"></DoorImg>
         </Alter>
       ) : null}
       <AlterBox>
-        <Pen src="./pen.png" onClick={alterPaper}></Pen>
+        <Pen src="./images/pen.png" onClick={alterPaper}></Pen>
         {paper ? <Insert></Insert> : null}
         {reject ? (
-          <StopImg src="./againBtn.png" onClick={alterMom} alter></StopImg>
+          <StopImg src="./images/againBtn.png" onClick={alterMom}></StopImg>
         ) : (
-          <StopImg src="./stopBtn.png" onClick={alterMom}></StopImg>
+          <StopImg src="./images/stopBtn.png" onClick={alterMom}></StopImg>
         )}
       </AlterBox>
     </Container>
@@ -115,12 +116,13 @@ const AlterBox = styled.div`
   z-index: 1000;
   right: 2rem;
   bottom: 2rem;
-  cursor: pointer;
+  /* cursor: pointer; */
 `;
 
 const Pen = styled.img`
   width: 10rem;
   z-index: 1000;
+  cursor: pointer;
   &:hover {
     transform: rotate(10deg);
   }
@@ -160,7 +162,7 @@ const Alter = styled.div`
 
 const DoorImg = styled.img`
   scale: 0.7;
-  animation: door 10s;
+  animation: door 3s;
 
   @keyframes door {
     from {
