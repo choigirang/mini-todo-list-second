@@ -2,10 +2,14 @@ import Main from "./components/Main";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import Home from "./components/Home";
-
-import { useState } from "react";
+// import bgm from "./music/bgm.mp3";
 
 function App() {
+  // const bgm = new Audio("./audio/bgm.mp3");
+
+  // const start = () => {
+  //   bgm.play();
+  // };
   return (
     <div className="App">
       <BrowserRouter>
@@ -14,10 +18,14 @@ function App() {
           <Route path="/Home" element={<Home />}></Route>
         </Routes>
       </BrowserRouter>
-      <Face src="./sunFace.png" />
-      <Sun src="./sun.png" />
-      <FamilyImg src="./family.png" />
-      <House src="./house.png"></House>
+      <Face src="./images//sunFace.png" />
+      <Sun src="./images//sun.png" />
+      <FamilyImg src="./images//family.png" />
+      <House src="./images//house.png"></House>
+      {/* <div>
+        <button onClick={start}>재생</button>
+        <button>정지</button>
+      </div> */}
     </div>
   );
 }
