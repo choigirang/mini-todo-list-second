@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleCheck } from "../actions/index";
+import { toggleCheck, checkClean, deleteTodo } from "../actions/index";
 import styled from "styled-components";
 
 const TotoList = () => {
@@ -12,6 +12,14 @@ const TotoList = () => {
     dispatch(toggleCheck(e));
   };
 
+  const finishClean = (e) => {
+    dispatch(checkClean(e));
+  };
+
+  const handleTodo = (e) => {
+    dispatch(deleteTodo(e));
+  };
+
   return (
     <Container>
       {state.map((item) => {
@@ -20,14 +28,17 @@ const TotoList = () => {
             <div className="textBox">
               {!item.checked ? (
                 <img
-                  src={`./uncheckBox${Math.floor(
+                  src={`./images/uncheckBox${Math.floor(
                     Math.random() * (4 - 0) + 1
                   )}.png`}
-                  onClick={() => handleCheck(item.id)} // item id 바로 넘겨주기 payload
+                  onClick={() => {
+                    handleCheck(item.id);
+                    finishClean(item.room);
+                  }} // item id 바로 넘겨주기 payload
                 ></img>
               ) : (
                 <img
-                  src={`./checkBox${Math.floor(
+                  src={`./images/checkBox${Math.floor(
                     Math.random() * (4 - 0) + 1
                   )}.png`}
                 ></img>
@@ -35,6 +46,10 @@ const TotoList = () => {
               <div className="room">{item.room}</div>
               <div className="clean">{item.clean}</div>
               <div className="clean">{item.during}분</div>
+              <img
+                src="./images/trash.png"
+                onClick={() => handleTodo(item.id)}
+              ></img>
             </div>
           </div>
         );
@@ -54,7 +69,7 @@ const Container = styled.div`
   padding: 0.7rem 0.2rem;
   padding-top: 6rem;
 
-  background-image: url("./paper.png");
+  background-image: url("./images/paper.png");
   background-size: 100% 100%;
 
   > .todoBox {
